@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Gallery | UAP CSE Math Club
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'gallery_app/css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="gallery-page">
+    <div class="container">
+      <div class="header">
+        <h1 class="section-title">Moments Captured</h1>
+      </div>
+
+      <div class="gallery-filters">
+        <a href="{% url 'gallery' %}" class="filter-btn {% if active_category == 'All' %}active{% endif %}">All</a>
+        <a href="?category=General" class="filter-btn {% if active_category == 'General' %}active{% endif %}">General</a>
+        <a href="?category=Quiz" class="filter-btn {% if active_category == 'Quiz' %}active{% endif %}">Quiz</a>
+        <a href="?category=Workshop" class="filter-btn {% if active_category == 'Workshop' %}active{% endif %}">Workshop</a>
+      </div>
+
+      <div class="gallery-container">
+        {% for item in items %}
+          <div class="photo-item">
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" />
+
+            <div class="hover-info">
+              <h3>{{ item.title }}</h3>
+              <div class="info-row">
+                <span>
+                  <i data-lucide="calendar" style="width:14px; margin-right:4px;"></i>
+                  {{ item.date_captured|date:'M d, Y' }}
+                </span>
+                <button class="view-btn" data-title="{{ item.title }}" data-date="{{ item.date_captured|date:'M d, Y' }}" data-image="{{ item.image.url }}" data-description="{{ item.description|default:'No description available' }}">View</button>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p style="text-align:center; color:var(--gray);">No gallery items yet.</p>
+        {% endfor %}
+      </div>
+
+      <div class="pagination">
+        {% if items.has_previous %}
+          <a class="page-btn"
+            href="?page={{ items.previous_page_number }}{% if active_category != 'All' %}
+              
+              
+              &category={{ active_category }}
+            {% endif %}">
+            Prev
+          </a>
+        {% endif %}
+
+        {% for num in items.paginator.page_range %}
+          {% if items.number == num %}
+            <span class="page-btn active">{{ num }}</span>
+          {% else %}
+            <a class="page-btn"
+              href="?page={{ num }}{% if active_category != 'All' %}
+                
+                
+                &category={{ active_category }}
+              {% endif %}">
+              {{ num }}
+            </a>
+          {% endif %}
+        {% endfor %}
+
+        {% if items.has_next %}
+          <a class="page-btn"
+            href="?page={{ items.next_page_number }}{% if active_category != 'All' %}
+              
+              
+              &category={{ active_category }}
+            {% endif %}">
+            Next
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="galleryModal">
+    <div class="modal-box">
+      <span class="close-btn">&times;</span>
+      <img id="modalImg" class="modal-img" />
+
+      <div id="modalInfo">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDate"></p>
+      </div>
+
+      <div id="modalDescBox">
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const modal = document.getElementById('galleryModal')
+      const img = document.getElementById('modalImg')
+      const title = document.getElementById('modalTitle')
+      const date = document.getElementById('modalDate')
+      const desc = document.getElementById('modalDesc')
+    
+      document.querySelectorAll('.view-btn').forEach((btn) => {
+        btn.addEventListener('click', function () {
+          modal.style.display = 'flex'
+          img.src = this.dataset.image
+          title.innerText = this.dataset.title
+          date.innerText = this.dataset.date
+          desc.innerText = this.dataset.description
+        })
+      })
+    
+      document.querySelector('.close-btn').addEventListener('click', function () {
+        modal.style.display = 'none'
+      })
+    
+      window.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.style.display = 'none'
+        }
+      })
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        UAP CSE Math Club
+      {% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    {% block extra_css %}
+
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <a href="{% url 'home' %}" class="logo">
+          <div class="logo-circle">
+            <img src="{% static 'images/Math Club.png' %}" alt="Math Club Logo" class="logo-img" />
+          </div>
+          <div class="logo-text">
+            Math Club
+            <span>CSE, UAP</span>
+          </div>
+        </a>
+
+        <ul class="nav-links" id="nav-menu">
+          <li>
+            <a href="{% url 'home' %}" id="nav-home">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'gallery' %}" id="nav-gallery">Gallery</a>
+          </li>
+          <li>
+            <a href="{% url 'events' %}" id="nav-events">Events</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-trigger">Team <i data-lucide="chevron-down" style="width: 14px;"></i></a>
+            <div class="dropdown-menu">
+              <a href="{% url 'active_team' %}">Active Members</a>
+              <a href="{% url 'former_presidents' %}">Former Presidents</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-trigger">Quiz <i data-lucide="chevron-down" style="width: 14px;"></i></a>
+            <div class="dropdown-menu">
+              <a href="{% url 'quiz' %}">Challenge</a>
+              <a href="#">Leaderboard</a>
+            </div>
+          </li>
+          <li>
+            <a href="{% url 'join' %}">Join Us</a>
+          </li>
+          <li>
+            <a href="{% url 'contact' %}">Contact</a>
+          </li>
+          <li>
+            <a href="{% url 'join' %}" class="btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Join Now</a>
+          </li>
+        </ul>
+        <button class="mobile-toggle" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+      </div>
+    </nav>
+
+    <main>
+      {% block content %}
+
+      {% endblock %}
+    </main>
+    {% block extra_js %}
+
+    {% endblock %}
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img src="{% static 'images/Math Club.png' %}" class="logo-img" />
+              <span>Math Club</span>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <a href="{% url 'home' %}">Home</a>
+              </li>
+              <li>
+                <a href="{% url 'gallery' %}">Gallery</a>
+              </li>
+              <li>
+                <a href="{% url 'events' %}">Events</a>
+              </li>
+              <li>
+                <a href="{% url 'active_team' %}">Team</a>
+              </li>
+              <li>
+                <a href="{% url 'quiz' %}">Quiz</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-contact-box">
+            <div class="footer-contact">
+              <a href="#"><i data-lucide="mail"></i></a>
+              <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 
+               3.657 9.128 8.438 9.878v-6.988h-2.54V12h2.54V9.797c0-2.507 
+               1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 
+               0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 
+               21.128 22 16.991 22 12z" />
+                </svg>
+              </a>
+              <a href="#"><i data-lucide="map-pin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-info">
+          <p>
+            © 2026 Math Club | Developed by
+            <a href="https://mominrifat8.onrender.com/" target="_blank">Momin Ali Rifat</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons()
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons()
+      
+      function toggleMenu() {
+        document.getElementById('nav-menu').classList.toggle('active')
+      }
+      
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar')
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled')
+        } else {
+          navbar.classList.remove('scrolled')
+        }
+      })
+      
+      const path = window.location.pathname
+      if (path === '/') document.getElementById('nav-home')?.classList.add('active')
+      if (path.includes('/gallery')) document.getElementById('nav-gallery')?.classList.add('active')
+      if (path.includes('/events')) document.getElementById('nav-events')?.classList.add('active')
+      if (path.includes('/quiz')) document.getElementById('nav-quiz')?.classList.add('active')
+    </script>
+  </body>
+</html>

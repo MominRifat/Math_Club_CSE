@@ -1,0 +1,151 @@
+.join-page {
+    padding: 100px 0;
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+.message-container {
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+.alert-success {
+    padding: 20px;
+    background: #dcfce7;
+    border: 1px solid #22c55e;
+    color: #14532d;
+    border-radius: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+}
+
+.form-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+}
+
+.form-header {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 25px;
+}
+
+.form-title {
+    font-weight: 800;
+    color: #1e293b;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.recruitment-info p {
+    margin: 5px 0;
+    color: #475569;
+}
+
+.recruitment-info span {
+    font-weight: 700;
+    color: #0d8eeb;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.three-cols {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: 0.3s;
+    background: #f8fafc;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0d8eeb;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(13, 142, 235, 0.1);
+}
+
+.checkbox-group,
+.radio-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.checkbox-group label,
+.radio-group label {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.other-input {
+    max-width: 200px;
+    padding: 8px 15px;
+}
+
+.submit-btn {
+    width: 100%;
+    background: #0d8eeb;
+    color: white;
+    padding: 18px;
+    border-radius: 16px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #0b7cd1;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 142, 235, 0.2);
+}
+
+@media (max-width: 768px) {
+    .form-card {
+        padding: 30px;
+        border-radius: 20px;
+    }
+
+    .form-row,
+    .three-cols {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+}

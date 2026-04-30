@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Active Team | UAP CSE Math Club
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'team_app/css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header">
+        <h1 class="section-title">The Masterminds</h1>
+      </div>
+
+      <div class="team-grid">
+        {% for member in members %}
+          <div class="container-cyber noselect">
+            <div class="canvas">
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div id="card">
+                <div class="card-content">
+                  <div class="glow-spot"></div>
+
+                  <div class="member-info-overlay">
+                    <div class="avatar-wrapper">
+                      <img src="{{ member.image.url }}" class="team-avatar" alt="{{ member.name }}" />
+                    </div>
+                    <h3 class="team-name">{{ member.name }}</h3>
+                  </div>
+
+                  <div class="fixed-bottom-elements">
+                    <div class="designation-full-box">
+                      <span>{{ member.designation }}</span>
+                    </div>
+                    <div class="social-footer-bar">
+                      {% if member.facebook %}
+                        <a href="{{ member.facebook }}" target="_blank" class="social-link fb"><i class="fab fa-facebook-f"></i></a>
+                      {% endif %}
+                      <div class="footer-separator"></div>
+                      {% if member.email %}
+                        <a href="mailto:{{ member.email }}" class="social-link mail"><i class="fas fa-envelope"></i></a>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="corner-elements">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="empty-msg">No active team members found.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

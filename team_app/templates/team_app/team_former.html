@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Former Presidents | UAP CSE Math Club
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'team_app/css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="former-presidents-section">
+    <div class="container">
+      <div class="section-header">
+        <h1 class="section-title">Former Presidents</h1>
+      </div>
+
+      <div class="president-grid">
+        {% for member in members|dictsortreversed:'tenure_year' %}
+          <div class="container-cyber noselect">
+            <div class="canvas">
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+
+              <div id="card">
+                <div class="card-content">
+                  <div class="glow-spot"></div>
+
+                  <div class="avatar-holder">
+                    <img src="{{ member.image.url }}" class="president-avatar" alt="{{ member.name }}" />
+                  </div>
+
+                  <div class="name-container">
+                    <h3 class="president-name">{{ member.name }}</h3>
+                  </div>
+
+                  <div class="bottom-info-section">
+                    <div class="designation-tag-box">
+                      <span>{{ member.designation }}</span>
+                    </div>
+
+                    <div class="info-stack">
+                      <div class="info-row">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Tenure: {{ member.tenure_year }}</span>
+                      </div>
+
+                      {% if member.dateofbirth %}
+                        <div class="info-row">
+                          <i class="fas fa-birthday-cake"></i>
+                          <span>Date of Birth: {{ member.dateofbirth }}</span>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="corner-elements">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="empty-msg">No former presidents found.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

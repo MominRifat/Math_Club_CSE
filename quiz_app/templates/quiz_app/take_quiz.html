@@ -1,0 +1,319 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      })
+    })
+  </script>
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-soft: #eef2ff;
+      --dark: #0f172a;
+      --text-main: #334155;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --white: #ffffff;
+    }
+    
+    body {
+      background-color: #f8fafc;
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text-main);
+      font-size: 14px; 
+    }
+    
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      z-index: 1100;
+    }
+    
+    .timer-box {
+      position: fixed;
+      top: 80px;
+      right: 30px;
+      z-index: 1000;
+      background: var(--dark);
+      color: #fbbf24;
+      padding: 10px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .timer-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+    
+    .timer-count {
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Consolas', monospace;
+    }
+    
+    .quiz-wrapper {
+      max-width: 780px;
+      margin: 80px auto 100px;
+      padding: 0 15px;
+    }
+    
+    .main-card {
+      background: var(--white);
+      padding: 30px 40px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+ 
+    .section-title {
+      font-size: 20px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .section-title::after {
+      content: '';
+      height: 1px;
+      background: var(--border-color);
+      flex-grow: 1;
+    }
+    
+    .quiz-header {
+      margin-bottom: 40px;
+    }
+    
+    .quiz-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 0;
+    }
+    
+    .quiz-subtitle {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    
+    .modern-input {
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 13px;
+      background: #fcfdfe;
+      transition: 0.2s;
+    }
+    
+    .modern-input:focus {
+      border-color: var(--primary);
+      outline: none;
+      background: #fff;
+    }
+    
+
+    .question-box {
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #f1f5f9;
+      background: #fafbfc;
+    }
+    
+    .q-text {
+      font-size: 15px; 
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 15px;
+    }
+    
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background: var(--white);
+      margin-top: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s;
+      font-size: 13.5px;
+    }
+    
+    .option-item:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+    
+    .option-item input {
+      margin-right: 12px;
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    }
+    
+    .btn-submit:hover {
+      background: #4338ca;
+    }
+    
+    @media (max-width: 640px) {
+      .input-grid {
+        grid-template-columns: 1fr 1fr;
+      } 
+      .quiz-wrapper {
+        margin-top: 40px;
+      }
+      .main-card {
+        padding: 20px 15px;
+        border-radius: 0;
+        border: none;
+      }
+      .timer-box {
+        top: auto;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 8px;
+      }
+      .btn-submit {
+        margin-bottom: 60px;
+      }
+    }
+  </style>
+
+  <div class="top-bar"></div>
+
+  <div class="timer-box">
+    <div class="timer-label">Time Remaining</div>
+    <div id="countdown-timer" class="timer-count">00:00:00</div>
+  </div>
+
+  <div class="quiz-wrapper">
+    <div class="main-card">
+      <div class="quiz-header">
+        <h2 class="quiz-title">{{ quiz.title }}</h2>
+        <p class="quiz-subtitle">Quiz | Math Club</p>
+      </div>
+
+      <form id="quizForm" method="POST">
+        {% csrf_token %}
+
+        <div class="section-title">Candidate Information</div>
+        <div class="input-grid">
+          <input type="text" name="name" class="modern-input" placeholder="Full Name" required />
+          <input type="text" name="student_id" class="modern-input" placeholder="Student ID" required />
+          <input type="email" name="uap_mail" class="modern-input" placeholder="UAP Email" required />
+          <input type="text" name="dept" class="modern-input" placeholder="Dept" required />
+          <input type="text" name="semester" class="modern-input" placeholder="Semester" required />
+          <input type="text" name="section" class="modern-input" placeholder="Section" required />
+        </div>
+
+        <div class="section-title">Questions</div>
+        {% for q in quiz.questions.all %}
+          <div class="question-box">
+            <div class="q-text">{{ forloop.counter }}. {{ q.text }}</div>
+
+            {% if q.image %}
+              <div style="margin: 12px 0; text-align: center;">
+                <img src="{{ q.image.url }}" style="max-width: 100%; border-radius: 8px; border: 1px solid #eee;" />
+              </div>
+            {% endif %}
+
+            <div class="options-list">
+              <label class="option-item">
+                <input type="radio" name="q_{{ q.id }}" value="1" required />
+                <span>{{ q.opt1 }}</span>
+              </label>
+              <label class="option-item">
+                <input type="radio" name="q_{{ q.id }}" value="2" />
+                <span>{{ q.opt2 }}</span>
+              </label>
+              <label class="option-item">
+                <input type="radio" name="q_{{ q.id }}" value="3" />
+                <span>{{ q.opt3 }}</span>
+              </label>
+              <label class="option-item">
+                <input type="radio" name="q_{{ q.id }}" value="4" />
+                <span>{{ q.opt4 }}</span>
+              </label>
+            </div>
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-submit" id="submitBtn">Submit Examination</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const quizEndTime = new Date("{{ quiz.end_time|date:'Y-m-d H:i:s' }}").getTime()
+    
+    const timerX = setInterval(function () {
+      const now = new Date().getTime()
+      const distance = quizEndTime - now
+    
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+    
+      const timerDisplay = document.getElementById('countdown-timer')
+    
+      if (distance < 0) {
+        clearInterval(timerX)
+        timerDisplay.innerHTML = 'TIME UP'
+        document.getElementById('quizForm').submit()
+      } else {
+        timerDisplay.innerHTML = (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)
+      }
+    }, 1000)
+  </script>
+{% endblock %}

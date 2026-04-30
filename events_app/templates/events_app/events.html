@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Events | UAP CSE Math Club
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'events_app/css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="page-wrapper">
+    <section class="events-section">
+      <div class="container">
+        <div class="header-content">
+          <div class="title-wrapper">
+            <h1 class="main-title">Events</h1>
+          </div>
+          <p class="sub-title">Stay updated with our latest activities and join the challenges.</p>
+        </div>
+
+        <div class="events-grid">
+          {% for event in events %}
+            <div class="event-card {{ event.status|lower }}">
+              <div class="status-badge">{{ event.status }}</div>
+
+              <div class="card-body">
+                <div class="top-info">
+                  <span class="category-tag">{{ event.get_event_type_display }}</span>
+                  <h3 class="event-title">{{ event.title }}</h3>
+                  <p class="event-desc">{{ event.description }}</p>
+                </div>
+
+                <div class="action-area">
+                  {% if event.status == 'RUNNING' %}
+                    <div class="timer-container" data-deadline="{{ event.end_registration|date:'Y-m-d H:i:s' }}">
+                      <div class="timer-box">
+                        <span class="days">00</span><small>Days</small>
+                      </div>
+                      <div class="timer-box">
+                        <span class="hours">00</span><small>Hrs</small>
+                      </div>
+                      <div class="timer-box">
+                        <span class="mins">00</span><small>Mins</small>
+                      </div>
+                      <div class="timer-box sec-highlight">
+                        <span class="secs">00</span><small>Secs</small>
+                      </div>
+                    </div>
+                    <a href="{{ event.form_url }}" class="btn-event btn-register">Register Now <i class="fas fa-arrow-right"></i></a>
+                  {% elif event.status == 'UPCOMING' %}
+                    <div class="info-box upcoming-info">
+                      <i class="fas fa-clock"></i> Starts: {{ event.start_registration|date:'d M, Y' }}
+                    </div>
+                    <button class="btn-event btn-disabled" disabled>Coming Soon</button>
+                  {% else %}
+                    <div class="info-box finished-info">
+                      <i class="fas fa-calendar-check"></i> Event Concluded
+                    </div>
+                    <button class="btn-event btn-finished" disabled>Registration Closed</button>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <div class="no-events-box">
+              <i class="fas fa-calendar-times"></i>
+              <p>No events available right now. Keep an eye on our social media!</p>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if events.has_other_pages %}
+          <div class="pagination">
+            {% if events.has_previous %}
+              <a href="?page={{ events.previous_page_number }}" class="page-link">&laquo; Previous</a>
+            {% endif %}
+            <span class="current-page">{{ events.number }} / {{ events.paginator.num_pages }}</span>
+            {% if events.has_next %}
+              <a href="?page={{ events.next_page_number }}" class="page-link">Next &raquo;</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function updateTimers() {
+      document.querySelectorAll('.timer-container').forEach((timer) => {
+        const deadline = new Date(timer.dataset.deadline).getTime()
+        const now = new Date().getTime()
+        const gap = deadline - now
+    
+        if (gap > 0) {
+          const d = Math.floor(gap / (1000 * 60 * 60 * 24))
+          const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+          const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60))
+          const s = Math.floor((gap % (1000 * 60)) / 1000)
+    
+          timer.querySelector('.days').innerText = d.toString().padStart(2, '0')
+          timer.querySelector('.hours').innerText = h.toString().padStart(2, '0')
+          timer.querySelector('.mins').innerText = m.toString().padStart(2, '0')
+          timer.querySelector('.secs').innerText = s.toString().padStart(2, '0')
+        }
+      })
+    }
+    setInterval(updateTimers, 1000)
+    updateTimers()
+  </script>
+{% endblock %}

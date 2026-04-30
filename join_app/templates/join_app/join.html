@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Join Us | UAP CSE Math Club
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'join_app/css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="join-page">
+    <div class="container">
+      {% if messages %}
+        <div class="message-container">
+          {% for message in messages %}
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle"></i> {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="form-card">
+        <div class="form-header">
+          <h1 class="form-title">Math Club, CSE-UAP Member Recruitment - {{ config.semester_name }}</h1>
+          <div class="recruitment-info">
+            <p>
+              <span>👥 Eligible:</span> Sem 1–2 (Batch 57) & Sem 2–1 (Batch 56)
+            </p>
+            <p>
+              <span>⏰ Deadline:</span> {{ config.deadline }}
+            </p>
+          </div>
+          <p class="query-text">
+            Queries: <a href="https://www.facebook.com/mathclub.cse">Facebook Page</a>
+          </p>
+        </div>
+
+        <form action="{% url 'join' %}" method="POST">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" name="name" class="form-input" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Registration Number *</label>
+              <input type="text" name="reg_no" class="form-input" placeholder="e.g. 21101001" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contact Number *</label>
+              <input type="text" name="phone" class="form-input" placeholder="017XXXXXXXX" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address (Edu mail) *</label>
+            <input type="email" name="email" class="form-input" placeholder="name@uap-bd.edu" required />
+          </div>
+
+          <div class="form-row three-cols">
+            <div class="form-group">
+              <label class="form-label">Semester *</label>
+              <select name="semester" class="form-input">
+                <option value="1-2">1-2</option>
+                <option value="2-1">2-1</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Section *</label>
+              <select name="section" class="form-input">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gender *</label>
+              <select name="gender" class="form-input">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Why do you want to join? *</label>
+            <textarea name="motivation" class="form-input" rows="3" placeholder="Your motivation..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Math Contest/Olympiad Experience</label>
+            <textarea name="experience" class="form-input" rows="3" placeholder="Share your experience..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Designing Skills *</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="design_skills" value="Photoshop" />Photoshop</label>
+              <label><input type="checkbox" name="design_skills" value="Illustrator" />Illustrator</label>
+              <label><input type="checkbox" name="design_skills" value="Canva" />Canva</label>
+              <input type="text" name="other_design" placeholder="Other" class="form-input other-input" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Video Editing Experience? *</label>
+            <div class="radio-group">
+              <label><input type="radio" name="video_edit" value="Yes" required />Yes</label>
+              <label><input type="radio" name="video_edit" value="No" />No</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Extracurricular Activities *</label>
+            <textarea name="extracurricular" class="form-input" rows="3" placeholder="Volunteering, hobbies, etc." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}
