@@ -1,11 +1,17 @@
 .fb-updates {
     padding-top: 95px;
     padding-bottom: 60px;
-    background-color: #ffffff;
+
+    /* background-color: #020617;
+
     background-image:
-        linear-gradient(rgba(113, 113, 207, 0.18) 1px, transparent 1px),
-        linear-gradient(to right, rgba(113, 113, 207, 0.18) 1px, transparent 1px);
-    background-size: 45px 45px;
+        linear-gradient(to right, rgba(71, 85, 105, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(71, 85, 105, 0.25) 1px, transparent 1px),
+        radial-gradient(circle at 50% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 70%); */
+
+    background-size: 32px 32px, 32px 32px, 100% 100%;
+
+    background-position: center;
 }
 
 .fb-header {
@@ -14,15 +20,21 @@
 }
 
 .section-icon {
-    width: 65px;
-    height: 65px;
-    background: #2563eb;
-    border-radius: 18px;
+    width: 55px;
+    height: 55px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 25px auto 14px auto;
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+
+    margin: 25px auto 14px;
+
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    backdrop-filter: blur(10px);
+
+    border-radius: 10px;
+    box-shadow: none;
 }
 
 .section-icon svg {
@@ -33,43 +45,85 @@
 
 .section-title,
 .section-title1 {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     padding: 12px 28px;
-    border-radius: 999px;
-    background: #eff6ff;
-    background: linear-gradient(90deg, #004aad, #cb6ce6);
+    border-radius: 20px;
+
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    backdrop-filter: blur(12px);
+
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #818cf8, #f472b6);
+    /* background-image: linear-gradient(135deg,
+            #60a5fa,
+            #818cf8,
+            #a5b4fc); */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 2rem;
-    font-weight: 800;
-    border: 1px solid #dbeafe;
-    box-shadow: 0 0 22px rgba(37, 99, 235, 0.15);
+
+    box-shadow:
+        0 0 0 1px rgba(59, 130, 246, 0.08),
+        0 0 25px rgba(37, 99, 235, 0.12);
 }
 
 .fb-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 32px;
-    margin-top: -25px;
+    margin-top: -50px;
 }
 
 .fb-card {
-    border-radius: 26px;
+    border-radius: 18px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
+    transition: all .35s ease;
 
-    background: linear-gradient(145deg, #f8fbff, #eef5ff);
-    border: 1px solid #e3ecff;
+    background: rgba(15, 23, 42, 0.45);
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background-image:
+        radial-gradient(circle at top,
+            rgba(59, 130, 246, 0.12) 0%,
+            rgba(99, 102, 241, 0.08) 35%,
+            transparent 70%);
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 10px 30px rgba(2, 6, 23, .35);
+}
+
+.fb-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, .04),
+            transparent 35%);
 }
 
 .fb-card:hover {
-    transform: translateY(-14px);
-    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.18);
+    transform: translateY(-10px);
+
+    border-color: rgba(96, 165, 250, .35);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .04),
+        0 18px 40px rgba(37, 99, 235, .18),
+        0 0 25px rgba(59, 130, 246, .12);
 }
 
 .fb-card-image {
@@ -92,21 +146,25 @@
     position: absolute;
     bottom: 12px;
     left: 12px;
+
     display: flex;
     align-items: center;
     gap: 6px;
 
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #ffffff;
-
-    padding: 6px 12px;
+    padding: 7px 14px;
     border-radius: 999px;
 
-    background: linear-gradient(135deg, #2563eb, #084ad9);
+    color: #c9c3ed;
+    font-size: .75rem;
+    font-weight: 700;
+
+    background: rgba(2, 6, 23, 0.65);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    backdrop-filter: blur(14px);
+
     box-shadow:
-        0 0 12px rgba(59, 130, 246, 0.55),
-        0 0 25px rgba(37, 99, 235, 0.25);
+        0 8px 20px rgba(2, 6, 23, 0.35),
+        0 0 16px rgba(59, 130, 246, 0.12);
 }
 
 .fb-card-caption {
@@ -115,20 +173,37 @@
     height: 100px;
     overflow: hidden;
 
-    margin: 12px 12px 0 12px;
-    border-radius: 16px;
+    margin: 12px;
+    border-radius: 14px;
 
     background: linear-gradient(135deg,
-            rgba(59, 130, 246, 0.18),
-            rgba(34, 197, 94, 0.12),
-            rgba(163, 189, 226, 0.25));
-    border: 1px solid #ffffff;
-    transition: 0.3s ease;
+            rgba(15, 23, 42, 0.65) 0%,
+            rgba(37, 99, 235, 0.12) 55%,
+            rgba(99, 102, 241, 0.08) 100%);
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 8px 20px rgba(2, 6, 23, .18);
+
+    transition: all .3s ease;
+}
+
+.fb-card:hover .fb-card-caption {
+    border-color: rgba(96, 165, 250, 0.35);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .04),
+        0 0 18px rgba(59, 130, 246, .12);
 }
 
 .fb-card-caption h3 {
     font-size: 1.2rem;
-    background: linear-gradient(90deg, #0d3164, #1b0f65);
+    background: linear-gradient(to right, #9f95d8, #c9c3ed);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -139,7 +214,7 @@
 
 .fb-card-caption p {
     font-size: 0.92rem;
-    color: #64748b;
+    color: #c9c3ed;
     line-height: 1.5;
 
     display: -webkit-box;
@@ -155,43 +230,113 @@
 }
 
 .fb-card-link {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #2563eb;
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+    border-radius: 10px;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    color: #bfdbfe;
+
+    background: transparent;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+
+    transition: all .3s ease;
+}
+
+.fb-card-link:hover {
+    background: transparent;
+    color: #ffffff;
+
+    border-color: rgba(96, 165, 250, 0.55);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 16px rgba(59, 130, 246, 0.18);
 }
 
 .fb-card-link::after {
     content: "→";
-    transition: 0.3s;
+    transition: transform .3s ease;
 }
 
 .fb-card-link:hover::after {
     transform: translateX(4px);
 }
 
-.btn-outline {
-    display: inline-block;
-    margin: 50px auto 0;
-    padding: 12px 28px;
-    background: #2563eb;
-    color: #fff;
-    font-weight: 800;
-    border-radius: 999px;
-    text-decoration: none;
-    transition: 0.3s;
+.fb-card-link::after {
+    content: "→";
+    transition: transform .3s ease;
 }
 
-.btn-outline:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
+.fb-card-link:hover {
+    background: rgba(37, 99, 235, 0.22);
+    border-color: rgba(96, 165, 250, 0.45);
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.18),
+        0 0 18px rgba(59, 130, 246, 0.12);
+}
+
+.fb-card-link:hover::after {
+    transform: translateX(4px);
+}
+
+.btn-outlineviewall {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 50px auto 0;
+    padding: 12px 24px;
+
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: #dbeafe;
+    font-weight: 700;
+    text-decoration: none;
+
+    border-radius: 10px;
+    transition: all .3s ease;
+}
+
+.btn-outlineviewall:hover {
+    background: rgba(37, 99, 235, 0.22);
+    border-color: rgba(96, 165, 250, 0.45);
+
+    color: #ffffff;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.18),
+        0 0 18px rgba(59, 130, 246, 0.12);
 }
 
 .fb-updates .container {
     text-align: center;
+}
+.divider {
+    width: 70%;
+    margin: 60px auto;
+    border: none;
+    height: 1px;
+
+    background: linear-gradient(to right,
+            transparent,
+            rgba(59, 130, 246, 0.5),
+            transparent);
 }
 
 @media (max-width: 768px) {

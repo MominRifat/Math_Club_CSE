@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     {% block extra_css %}
 
     {% endblock %}
@@ -60,7 +61,7 @@
             <a href="{% url 'contact' %}">Contact</a>
           </li>
           <li>
-            <a href="{% url 'join' %}" class="btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Join Now</a>
+            <a href="{% url 'join' %}" class="btn-primaryjoin" style="padding: 10px 24px; font-size: 0.85rem;">Join Now</a>
           </li>
         </ul>
         <button class="mobile-toggle" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
