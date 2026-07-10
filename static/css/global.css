@@ -790,14 +790,7 @@ body {
 
 .activities {
     padding: 70px 0;
-    /* background-color: #000000;
-    background-image:
-        radial-gradient(ellipse 80% 60% at 50% 0%,
-            rgba(139, 92, 246, 0.25),
-            transparent 70%);
-    background-repeat: no-repeat;
-    background-size: 100% 100%; */
-    background-position: top center;
+    margin-top: -130px;
 }
 
 .header {
@@ -805,13 +798,25 @@ body {
 }
 
 .section-tag {
-    position: relative;
-    display: flex;
+    width: 50px;
+    height: 50px;
+
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    margin: 5px auto 12px;
+    /* আগের 25px থেকে কমালাম */
+
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    backdrop-filter: blur(10px);
+
+    border-radius: 10px;
+    box-shadow: none;
 }
 
-.section-tag::after {
+/* .section-tag::after {
     content: "";
     position: absolute;
     width: 65px;
@@ -824,18 +829,13 @@ body {
     transform: translate(-50%, -60%);
 
     z-index: 0;
-}
+} */
 
 .section-tag svg {
+    width: 20px;
+    height: 20px;
     display: block;
-    width: 28px;
-    height: 28px;
-    color: #fff;
-    position: relative;
-    z-index: 2;
-
-    transform: translateY(-4px);
-    line-height: 1;
+    color: #ffffff;
 }
 
 .section-title {
@@ -855,19 +855,37 @@ body {
 .activity-card {
     text-align: center;
     padding: 40px 30px;
-    background: rgba(0, 3, 9, 0.85) !important;
-    color: #b8dbe8;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgb(32, 32, 73);
-    transition: 0.3s;
+
+    background: transparent;
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 16px;
+
+    color: #c9c3ed;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 8px 24px rgba(37, 99, 235, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+    transition: all .35s ease;
+
     position: relative;
     overflow: hidden;
 }
 
 .activity-card:hover {
-    transform: scale(1.05);
-    border-color: var(--primary);
+    transform: translateY(-8px);
+
+    background: transparent;
+
+    border-color: rgba(96, 165, 250, 0.45);
+
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.15),
+        0 0 20px rgba(59, 130, 246, 0.12);
 }
 
 .activity-icon {
@@ -970,6 +988,7 @@ body {
 
     background-repeat: no-repeat;
     background-size: 100% 100%; */
+    margin-top: -140px;
     background-position: bottom center;
 }
 
@@ -1000,39 +1019,35 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .about-card {
     border-radius: 16px;
     padding: 24px;
 
-    background: #0b1220;
+    background: rgba(15, 23, 42, 0.45);
 
-    background-image: radial-gradient(circle at 50% 50%,
-            rgba(59, 130, 246, 0.16) 0%,
-            rgba(59, 130, 246, 0.09) 25%,
-            rgba(59, 130, 246, 0.04) 35%,
-            transparent 60%);
+    background-image:
+        radial-gradient(circle at top,
+            rgba(59, 130, 246, 0.12) 0%,
+            rgba(99, 102, 241, 0.08) 35%,
+            transparent 70%);
 
-    background-size: 100% 100%;
+    border: 1px solid rgba(59, 130, 246, 0.18);
 
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 10px 30px rgba(2, 6, 23, .35);
 
+    color: #c9c3ed;
     text-align: center;
 
-    transition: all 0.3s ease;
-
-    color: #e2e8f0;
-}
-
-.about-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px;
+    transition: all .35s ease;
 }
 
 .about-card h3 {
@@ -1047,6 +1062,9 @@ body {
     line-height: 1.6;
 }
 
+
+
+
 .about-split .container {
     text-align: center;
     margin-bottom: 60px;
@@ -1058,9 +1076,7 @@ body {
     padding: 80px 0;
     text-align: center;
     overflow: hidden;
-
-    /* dark base */
-    background: #000000;
+    margin-top: -140px;
 }
 
 /* horizon glow background */
@@ -1143,25 +1159,55 @@ body {
 .convenor-text {
     max-width: 700px;
     min-height: 400px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 60px auto;
-    font-size: 1.3rem;
-    line-height: 1.8;
-    color: #cec6c6;
+
+    margin: 0 auto 60px;
+    padding: 28px;
+
     position: relative;
     z-index: 1;
-    border: 2px solid #1d2b52;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    background: radial-gradient(125% 125% at 50% 10%,
-            #000000 40%,
-            #0d1a36 100%);
+
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    background: rgba(15, 23, 42, 0.35);
+
+    background-image:
+        radial-gradient(circle at top,
+            rgba(59, 130, 246, 0.12) 0%,
+            rgba(99, 102, 241, 0.08) 35%,
+            transparent 70%);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 10px 30px rgba(2, 6, 23, .35);
+
+    font-size: 1.3rem;
+    line-height: 1.8;
     font-weight: 500;
     font-style: italic;
     text-align: center;
+
+    color: #c9c3ed;
+
+    transition: all .35s ease;
+}
+
+.convenor-text:hover {
+    border-color: rgba(96, 165, 250, .4);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .04),
+        0 18px 40px rgba(37, 99, 235, .18),
+        0 0 25px rgba(59, 130, 246, .12);
+
+    transform: translateY(-5px);
 }
 
 .convenor-info {
@@ -1187,7 +1233,7 @@ body {
 }
 
 .convenor-name {
-    color: #ffffff;
+    color: #c9c3ed;
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 6px;
@@ -1195,7 +1241,7 @@ body {
 
 .convenor-designation {
     font-size: 0.9rem;
-    color: #dbcbcb;
+    color: #c9c3ed;
     margin: 2px 0;
 }
 
