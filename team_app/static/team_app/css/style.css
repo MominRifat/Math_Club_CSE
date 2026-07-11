@@ -172,11 +172,12 @@
     font-weight: 800;
     margin-bottom: 5px;
 
-    background: linear-gradient(to right, #fff7ad, #ffa9f9);
+    /* background: linear-gradient(to right, #fff7ad, #ffa9f9);
 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background-clip: text; */
+    color: #0d8eeb;
 
     letter-spacing: .4px;
 

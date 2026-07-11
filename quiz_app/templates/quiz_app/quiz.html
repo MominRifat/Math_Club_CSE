@@ -1,211 +1,719 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block title %} Quiz | UAP CSE
+Math Club {% endblock %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body)"
+></script>
+> {% endblock %} {% block content %}
+<style>
+  .title-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 28px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(59, 130, 246, 0.18);
 
-{% block title %}
-  Quiz | UAP CSE Math Club
-{% endblock %}
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
-{% block extra_css %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>>
-{% endblock %}
-{% block content %}
-  <style>
-    :root {
-      --primary: #6366f1;
-      --success: #22c55e;
-      --danger: #ef4444;
-      --dark: #1e293b;
-      --gray: #64748b;
-      --bg: #f8fafc;
-    }
-    
-    body {
-      background-color: var(--bg);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    
-    .quiz-portal-container {
-      flex: 1;
-      padding: 150px 20px 80px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    
-    .header-oval-box {
-      background: white;
-      color: white;
-      padding: 2px 30px;
-      border-radius: 100px; 
-      display: inline-block;
-      margin-bottom: 50px;
-      box-shadow: 0 10px 20px rgba(165, 158, 158, 0.2);
-    }
-    
-    .portal-title {
-      background: linear-gradient(90deg, #004aad, #cb6ce6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    
-      font-size: 2rem;
-      font-weight: 800;
-      margin: 0;
-      letter-spacing: -0.5px;
-    }
-    
-    .quiz-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
-      gap: 35px;
-      justify-content: center;
-      margin-bottom: 60px; 
-    }
-    
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 0 22px rgba(37, 99, 235, 0.12);
 
-    .quiz-card {
-      background: white;
-      padding: 30px;
-      border-radius: 35px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      transition: all 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    
-    .quiz-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 45px rgba(99, 102, 241, 0.12);
-      border-color: var(--primary);
-    }
-    
-    .quiz-card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 12px;
-      color: var(--dark);
-      font-weight: 800;
-    }
-    
-    .quiz-desc {
-      font-size: 0.95rem;
-      color: var(--gray);
-      line-height: 1.6;
-      margin-bottom: 25px;
-      flex-grow: 1;
-    }
-    
-    .status-badge {
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    
-    .btn-quiz {
-      display: block;
-      text-align: center;
-      background: var(--primary);
-      color: white;
-      padding: 14px;
-      border-radius: 25px; 
-      text-decoration: none;
-      font-weight: 700;
-      margin-top: 20px;
-      transition: 0.3s;
-    }
-    
-    .btn-quiz:hover {
-      background: #4f46e5;
-      transform: scale(1.02);
-    }
-    
-    .btn-disabled {
-      width: 100%;
-      background: #f1f5f9;
-      color: #94a3b8;
-      padding: 14px;
-      border-radius: 25px;
-      border: none;
-      margin-top: 20px;
-      font-weight: 700;
-    }
-    .option-item span {
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .mjx-chtml {
-      font-size: 110% !important;
-    }
-  </style>
+    transition: all 0.3s ease;
+  }
 
-  <div class="quiz-portal-container" style="text-align: center;">
-    <div class="header-oval-box">
-      <h2 class="portal-title">Weekly Quizzes</h2>
+  .title-wrapper .title-text {
+    background: linear-gradient(135deg, #60a5fa, #818cf8, #a5b4fc);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  .title-wrapper h1 {
+    background: linear-gradient(to right, #818cf8, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 2px 0;
+  }
+
+  .page-wrapper {
+    padding-top: 100px;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .header-content {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .sub-title {
+    color: #c9c3ed;
+    margin-top: 5px;
+    font-size: 0.85rem;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding-bottom: 30px;
+  }
+
+  .event-card {
+    background: transparent;
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 16px;
+
+    padding: 15px;
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 330px;
+    height: auto;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 10px 30px rgba(2, 6, 23, 0.25);
+
+    transition: all 0.35s ease;
+  }
+
+  .event-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+      circle at top,
+      rgba(59, 130, 246, 0.1) 0%,
+      rgba(99, 102, 241, 0.06) 35%,
+      transparent 70%
+    );
+
+    pointer-events: none;
+  }
+
+  .event-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(96, 165, 250, 0.4);
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 18px 40px rgba(37, 99, 235, 0.18),
+      0 0 24px rgba(59, 130, 246, 0.12);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .top-info {
+    flex-grow: 1;
+  }
+
+  .status-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .running .status-badge {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.35);
+  }
+
+  .upcoming .status-badge {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+  }
+
+  .finished .status-badge {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+  }
+
+  .status-badge {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  }
+
+  .category-tag {
+    display: inline-block;
+
+    color: #0d8eeb;
+    font-weight: 700;
+    font-size: 1rem;
+
+    margin-bottom: 18px;
+  }
+
+  .event-title {
+    margin: 6px 0;
+    font-size: 1.2rem;
+    color: #c9c3ed;
+    line-height: 1.2;
+  }
+
+  .event-desc {
+    color: #64748b;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  .action-area {
+    margin-top: auto;
+  }
+
+  .timer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+
+    margin-bottom: 12px;
+    padding: 10px;
+
+    background: transparent;
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 12px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 8px 20px rgba(37, 99, 235, 0.08);
+
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .timer-container:hover {
+    border-color: rgba(96, 165, 250, 0.4);
+
+    box-shadow:
+      0 12px 28px rgba(37, 99, 235, 0.15),
+      0 0 18px rgba(59, 130, 246, 0.12);
+  }
+
+  /* Running quiz timer uses green accent instead of default */
+  .running .timer-container {
+    border-color: rgba(34, 197, 94, 0.25);
+  }
+
+  .running .timer-container:hover {
+    border-color: rgba(74, 222, 128, 0.45);
+    box-shadow:
+      0 12px 28px rgba(34, 197, 94, 0.15),
+      0 0 18px rgba(34, 197, 94, 0.12);
+  }
+
+  .running .timer-box span {
+    color: #4ade80;
+  }
+
+  .timer-box span {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #c9c3ed;
+  }
+
+  .timer-box small {
+    font-size: 0.5rem;
+    color: #64748b;
+  }
+
+  .sec-highlight span {
+    color: #ef4444;
+  }
+
+  .running .sec-highlight span {
+    color: #4ade80;
+  }
+
+  .timer-label {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .info-box {
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    text-align: center;
+    font-weight: 600;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .running-info {
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .upcoming-info {
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .finished-info {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+    animation: pulseDot 1.2s infinite ease-in-out;
+    display: inline-block;
+  }
+
+  @keyframes pulseDot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.8);
+    }
+  }
+
+  .btn-event {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border: none;
+    transition: 0.3s;
+  }
+
+  .btn-register {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 20px;
+
+    background: transparent;
+    color: #c9c3ed;
+
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    border-radius: 10px;
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+  }
+
+  .btn-register:hover {
+    background: rgba(37, 99, 235, 0.1);
+
+    border-color: rgba(96, 165, 250, 0.5);
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
+  }
+
+  .btn-disabled,
+  .btn-finished {
+    background: transparent;
+
+    color: #64748b;
+
+    border: 1px solid rgba(100, 116, 139, 0.25);
+    border-radius: 10px;
+
+    cursor: not-allowed;
+
+    opacity: 0.65;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+    pointer-events: none;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0 40px;
+  }
+
+  .page-link {
+    padding: 6px 14px;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    border-radius: 8px;
+    color: #c9c3ed;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .page-link:hover {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: rgba(96, 165, 250, 0.5);
+    color: #fff;
+  }
+
+  .current-page {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 8px;
+    background: rgba(37, 99, 235, 0.22);
+    border: 1px solid rgba(96, 165, 250, 0.5);
+  }
+
+  .page-link.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .option-item span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .mjx-chtml {
+    font-size: 110% !important;
+  }
+
+  @media (max-width: 1024px) {
+    .events-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-wrapper {
+      padding-top: 80px;
+    }
+
+    .events-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .event-card {
+      min-height: 310px;
+    }
+  }
+</style>
+
+<div class="page-wrapper">
+  <div class="container">
+    <div class="header-content">
+      <div class="title-wrapper">
+        <h1>Weekly Quizzes</h1>
+      </div>
+      <p class="sub-title">Test your math skills every week</p>
     </div>
 
-    <div class="quiz-grid">
+    <div class="events-grid">
       {% for quiz in quizzes %}
-        <div class="quiz-card" style="text-align: left;">
-          <h3>{{ quiz.title }}</h3>
-          <p class="quiz-desc">{{ quiz.description|truncatewords:15 }}</p>
+      <div
+        class="event-card {% if quiz.status == 'RUNNING' %}running{% elif quiz.status == 'UPCOMING' %}upcoming{% else %}finished{% endif %}"
+        data-status="{{ quiz.status }}"
+        data-start="{{ quiz.start_time|date:'c' }}"
+        data-end="{% if quiz.end_time %}{{ quiz.end_time|date:'c' }}{% endif %}"
+      >
+        <span class="status-badge">{{ quiz.status }}</span>
 
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 0.85rem; color: var(--gray); font-weight: 600;">Status:</span>
-            <span class="status-badge"
-              style="background: {% if quiz.status == 'RUNNING' %}
-                
-                #dcfce7
-
-              {% else %}
-                                             
-                #fee2e2
-
-              {% endif %}; 
-                     color: {% if quiz.status == 'RUNNING' %}
-                
-                var(--success)
-
-              {% else %}
-                
-                var(--danger)
-
-              {% endif %};">
-              {{ quiz.status }}
-            </span>
+        <div class="card-body">
+          <div class="top-info">
+            <span class="category-tag">Quiz</span>
+            <h3 class="event-title">{{ quiz.title }}</h3>
+            <p class="event-desc">{{ quiz.description|truncatewords:15 }}</p>
           </div>
 
-          {% if quiz.status == 'RUNNING' %}
-            <a href="{% url 'take_quiz' quiz.id %}" class="btn-quiz">Participate Now</a>
-          {% elif quiz.status == 'FINISHED' %}
-            <button class="btn-disabled" disabled style="color: #ef4444; background: #fee2e2;">FINISHED</button>
-          {% else %}
-            <button class="btn-disabled" disabled>Upcoming</button>
-          {% endif %}
+          <div class="action-area">
+            {% if quiz.status == 'UPCOMING' %}
+            <div class="timer-label">Starts In</div>
+            <div class="timer-container start-timer">
+              <div class="timer-box">
+                <span class="cd-days">--</span>
+                <small>Days</small>
+              </div>
+              <div class="timer-box">
+                <span class="cd-hours">--</span>
+                <small>Hrs</small>
+              </div>
+              <div class="timer-box">
+                <span class="cd-mins">--</span>
+                <small>Min</small>
+              </div>
+              <div class="timer-box sec-highlight">
+                <span class="cd-secs">--</span>
+                <small>Sec</small>
+              </div>
+            </div>
+            <div class="info-box upcoming-info">
+              Starts {{ quiz.start_time|date:"d M, h:i A" }}
+            </div>
+            <button class="btn-event btn-disabled" disabled>Upcoming</button>
+
+            {% elif quiz.status == 'RUNNING' %} {% if quiz.end_time %}
+            {% comment %} <div class="timer-label">Ends In</div> {% endcomment %}
+            {% comment %} <div class="timer-container end-timer">
+              <div class="timer-box">
+                <span class="cd-days">--</span>
+                <small>Days</small>
+              </div>
+              <div class="timer-box">
+                <span class="cd-hours">--</span>
+                <small>Hrs</small>
+              </div>
+              <div class="timer-box">
+                <span class="cd-mins">--</span>
+                <small>Min</small>
+              </div>
+              <div class="timer-box sec-highlight">
+                <span class="cd-secs">--</span>
+                <small>Sec</small>
+              </div>
+            </div> {% endcomment %}
+            {% endif %}
+            <div class="info-box running-info">
+              <span class="live-dot"></span> Live Now
+            </div>
+            <a
+              href="{% url 'take_quiz' quiz.id %}"
+              class="btn-event btn-register"
+              >Participate Now</a
+            >
+
+            {% else %}
+            <div class="info-box finished-info">Quiz Ended</div>
+            <button class="btn-event btn-finished" disabled>FINISHED</button>
+            {% endif %}
+          </div>
         </div>
+      </div>
       {% endfor %}
     </div>
-  </div>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/tex-mml-chtml.js"></script>
 
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [
-          ['$', '$'],
-          ['\\(', '\\)']
-        ],
-        displayMath: [
-          ['$$', '$$'],
-          ['\\[', '\\]']
-        ]
-      }
-    }
-  </script>
+    {% if is_paginated %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+      <a href="?page=1" class="page-link">&laquo; First</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-link"
+        >Prev</a
+      >
+      {% else %}
+      <span class="page-link disabled">&laquo; First</span>
+      <span class="page-link disabled">Prev</span>
+      {% endif %}
+
+      <span class="current-page">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"
+        >Last &raquo;</a
+      >
+      {% else %}
+      <span class="page-link disabled">Next</span>
+      <span class="page-link disabled">Last &raquo;</span>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/tex-mml-chtml.js"
+></script>
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"],
+      ],
+    },
+  };
+</script>
+
+<!-- Countdown logic (Upcoming: starts-in | Running: ends-in) -->
+<script>
+  function setTimerValues(box, diff) {
+    const daysEl = box.querySelector(".cd-days");
+    const hoursEl = box.querySelector(".cd-hours");
+    const minsEl = box.querySelector(".cd-mins");
+    const secsEl = box.querySelector(".cd-secs");
+    if (!daysEl) return;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    daysEl.textContent = String(days).padStart(2, "0");
+    hoursEl.textContent = String(hours).padStart(2, "0");
+    minsEl.textContent = String(mins).padStart(2, "0");
+    secsEl.textContent = String(secs).padStart(2, "0");
+  }
+
+  function parseSafeDate(value) {
+    if (!value || value.trim() === "" || value === "None") return null;
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function updateCountdowns() {
+    // Upcoming quizzes -> countdown to start
+    document
+      .querySelectorAll(".event-card[data-status='UPCOMING']")
+      .forEach((card) => {
+        const startDate = parseSafeDate(card.getAttribute("data-start"));
+        const box = card.querySelector(".start-timer");
+        if (!startDate || !box) return;
+
+        const diff = startDate.getTime() - Date.now();
+
+        if (diff <= 0) {
+          const label = card.querySelector(".timer-label");
+          const info = card.querySelector(".info-box");
+          box.style.display = "none";
+          if (label) label.style.display = "none";
+          if (info) {
+            info.className = "info-box running-info";
+            info.innerHTML = '<span class="live-dot"></span> Starting...';
+          }
+          return;
+        }
+
+        setTimerValues(box, diff);
+      });
+
+    // Running quizzes -> countdown to end
+    document
+      .querySelectorAll(".event-card[data-status='RUNNING']")
+      .forEach((card) => {
+        const endDate = parseSafeDate(card.getAttribute("data-end"));
+        const box = card.querySelector(".end-timer");
+        if (!endDate || !box) return;
+
+        const diff = endDate.getTime() - Date.now();
+
+        if (diff <= 0) {
+          const label = card.querySelector(".timer-label");
+          box.style.display = "none";
+          if (label) label.style.display = "none";
+          return;
+        }
+
+        setTimerValues(box, diff);
+      });
+  }
+
+  updateCountdowns();
+  setInterval(updateCountdowns, 1000);
+</script>
 {% endblock %}
