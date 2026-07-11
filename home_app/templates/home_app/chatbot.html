@@ -1,0 +1,318 @@
+<!-- AI Chatbot Partial -->
+{% csrf_token %}
+<div class="chatbot-container">
+  <!-- Chat Toggle Button -->
+  <button
+    id="chatbot-toggle"
+    class="chatbot-toggle-btn"
+    aria-label="Toggle AI Assistant"
+  >
+    <!-- Floating chat tooltip -->
+    <span class="chatbot-tooltip">Chat with AI !</span>
+
+    <!-- Animated icon -->
+    <svg
+      id="chat-icon"
+      class="chatbot-icon"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+      ></path>
+    </svg>
+    <svg
+      id="close-icon"
+      class="chatbot-icon chatbot-icon-hidden"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      ></path>
+    </svg>
+
+    <!-- Pulse ring -->
+    <span class="chatbot-pulse-ring"></span>
+  </button>
+
+  <!-- Chat Panel -->
+  <div id="chatbot-panel" class="chatbot-panel chatbot-panel-hidden">
+    <!-- Chat Header -->
+    <div class="chatbot-header">
+      <div class="chatbot-header-left">
+        <div class="chatbot-avatar-wrap">
+          <div class="chatbot-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <span class="chatbot-status-dot"></span>
+        </div>
+        <div>
+          <h3 class="chatbot-title">Club Assistant</h3>
+          <p class="chatbot-subtitle">Online • AI Powered</p>
+        </div>
+      </div>
+      <button id="chatbot-close" class="chatbot-close-btn">
+        <svg
+          class="chatbot-close-icon"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="chatbot-messages" class="chatbot-messages">
+      <div class="chatbot-msg chatbot-msg-model">
+        <div class="chatbot-msg-avatar">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div class="chatbot-bubble chatbot-bubble-model">
+          Hi! I'm Math Club's dynamic AI assistant, Made by Momin Ali Rifat. Ask me anything about Math Club:
+          {% comment %} <ul class="chatbot-list">
+            <li>Custom Web Systems & Projects</li>
+            <li>Technical Skill Stack & Certifications</li>
+            <li>Work History & Education</li>
+            <li>Available Services & Contact Info</li>
+          </ul> {% endcomment %}
+        </div>
+      </div>
+
+      <!-- Quick Suggestions -->
+      <div id="quick-suggestions" class="chatbot-suggestions">
+        <p class="chatbot-suggestions-label">Suggested Questions</p>
+        <div class="chatbot-suggestions-list">
+          {% comment %} <button class="suggestion-btn chatbot-suggestion-btn">
+            What are your main projects?
+          </button>
+          <button class="suggestion-btn chatbot-suggestion-btn">
+            Tell me about your tech stack.
+          </button> {% endcomment %}
+          <button class="suggestion-btn chatbot-suggestion-btn">
+            How can I contact you?
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Typing Indicator -->
+    <div id="chatbot-typing" class="chatbot-typing chatbot-typing-hidden">
+      <div class="chatbot-msg-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="chatbot-typing-bubble">
+        <span class="chatbot-dot" style="animation-delay: 0ms"></span>
+        <span class="chatbot-dot" style="animation-delay: 150ms"></span>
+        <span class="chatbot-dot" style="animation-delay: 300ms"></span>
+      </div>
+    </div>
+
+    <!-- Chat Input Form -->
+    <form id="chatbot-form" class="chatbot-form">
+      <input
+        type="text"
+        id="chatbot-input"
+        placeholder="Type a message..."
+        required
+        autocomplete="off"
+        class="chatbot-input"
+      />
+      <button type="submit" class="chatbot-send-btn">
+        <svg
+          class="chatbot-send-icon"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+          ></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("chatbot-toggle");
+    const closeBtn = document.getElementById("chatbot-close");
+    const chatPanel = document.getElementById("chatbot-panel");
+    const chatIcon = document.getElementById("chat-icon");
+    const closeIcon = document.getElementById("close-icon");
+    const chatInput = document.getElementById("chatbot-input");
+    const chatForm = document.getElementById("chatbot-form");
+    const chatMessages = document.getElementById("chatbot-messages");
+    const typingIndicator = document.getElementById("chatbot-typing");
+    const suggestionContainer = document.getElementById("quick-suggestions");
+
+    let history = [];
+
+    toggleBtn.addEventListener("click", toggleChat);
+    closeBtn.addEventListener("click", toggleChat);
+
+    function toggleChat() {
+      const isHidden = chatPanel.classList.contains("chatbot-panel-hidden");
+      if (isHidden) {
+        chatPanel.classList.remove("chatbot-panel-hidden");
+        setTimeout(() => {
+          chatPanel.classList.add("chatbot-panel-visible");
+        }, 10);
+        chatIcon.classList.add("chatbot-icon-hidden");
+        closeIcon.classList.remove("chatbot-icon-hidden");
+        chatInput.focus();
+      } else {
+        chatPanel.classList.remove("chatbot-panel-visible");
+        setTimeout(() => chatPanel.classList.add("chatbot-panel-hidden"), 300);
+        chatIcon.classList.remove("chatbot-icon-hidden");
+        closeIcon.classList.add("chatbot-icon-hidden");
+      }
+    }
+
+    document.querySelectorAll(".suggestion-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const question = this.textContent.trim();
+        chatInput.value = question;
+        sendMessage(question);
+      });
+    });
+
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = "";
+      sendMessage(text);
+    });
+
+    async function sendMessage(text) {
+      appendMessage("user", text);
+      if (suggestionContainer) suggestionContainer.style.display = "none";
+      showTyping(true);
+      scrollToBottom();
+
+      const csrfToken =
+        document.querySelector("[name=csrfmiddlewaretoken]")?.value || "";
+
+      try {
+        const response = await fetch("/chatbot/api/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+          body: JSON.stringify({ message: text, history: history }),
+        });
+
+        const data = await response.json();
+        showTyping(false);
+
+        if (data.reply) {
+          appendMessage("model", data.reply, true);
+          history.push(
+            { role: "user", text: text },
+            { role: "model", text: data.reply },
+          );
+          if (history.length > 20) history = history.slice(-20);
+        } else {
+          appendMessage(
+            "model",
+            "Sorry, I encountered an issue. Please try again.",
+          );
+        }
+      } catch (error) {
+        showTyping(false);
+        appendMessage("model", "Sorry, I couldn't connect to the server.");
+      }
+      scrollToBottom();
+    }
+
+    function appendMessage(role, text, animate = false) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className =
+        role === "user"
+          ? "chatbot-msg chatbot-msg-user"
+          : "chatbot-msg chatbot-msg-model";
+
+      const avatarHTML =
+        role === "model"
+          ? `<div class="chatbot-msg-avatar"><i class="fas fa-robot"></i></div>`
+          : "";
+      const bubbleClass =
+        role === "user"
+          ? "chatbot-bubble chatbot-bubble-user"
+          : "chatbot-bubble chatbot-bubble-model";
+
+      msgDiv.innerHTML =
+        role === "user"
+          ? `<div class="${bubbleClass}">${escapeHTML(text)}</div>`
+          : `${avatarHTML}<div class="${bubbleClass}" id="typing-${Date.now()}"></div>`;
+      chatMessages.appendChild(msgDiv);
+
+      if (role === "model") {
+        const targetDiv = msgDiv.querySelector('[id^="typing-"]');
+        targetDiv.innerHTML = formatMarkdownOrHTML(text);
+        if (animate) {
+          targetDiv.style.opacity = 0;
+          let opacity = 0;
+          let fadeIn = setInterval(() => {
+            opacity += 0.1;
+            targetDiv.style.opacity = opacity;
+            if (opacity >= 1) clearInterval(fadeIn);
+          }, 30);
+        }
+      }
+      scrollToBottom();
+    }
+
+    function showTyping(show) {
+      typingIndicator.classList.toggle("chatbot-typing-hidden", !show);
+    }
+    function scrollToBottom() {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function escapeHTML(str) {
+      return str.replace(
+        /[&<>'"]/g,
+        (tag) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;",
+          })[tag] || tag,
+      );
+    }
+    function formatMarkdownOrHTML(text) {
+      if (text.includes("<p>") || text.includes("<ul>")) return text;
+      let formatted = text
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*(.*?)\*/g, "<em>$1</em>")
+        .replace(/`([^`]+)`/g, '<code class="chatbot-inline-code">$1</code>')
+        .replace(/\n\n/g, '</p><p class="chatbot-p-mt">');
+      return `<p>${formatted}</p>`;
+    }
+  });
+</script>

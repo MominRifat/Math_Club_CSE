@@ -16,6 +16,7 @@ urlpatterns = [
     path('quiz/', include('quiz_app.urls')),
     path('join/', include('join_app.urls')),
     path('contact/', include('contact_app.urls')),
+    path('chatbot/', include('chatbot.urls')),
 ]
 
 if settings.DEBUG:

@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'quiz_app',
     'join_app',
     'contact_app',
+    'chatbot',
 ]
 
 MIDDLEWARE = [
@@ -99,3 +100,10 @@ EMAIL_HOST_USER = "mominrifat8@gmail.com"
 EMAIL_HOST_PASSWORD = "kaawmtmwfzimfebv"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
