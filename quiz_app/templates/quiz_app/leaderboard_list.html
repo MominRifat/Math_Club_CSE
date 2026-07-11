@@ -1,0 +1,293 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Leaderboard | UAP
+CSE Math Club {% endblock %} {% block content %}
+<style>
+  .title-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 28px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 0 22px rgba(37, 99, 235, 0.12);
+  }
+
+  .title-wrapper h1 {
+    background: linear-gradient(to right, #818cf8, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 2px 0;
+  }
+
+  .page-wrapper {
+    padding-top: 100px;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .header-content {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .sub-title {
+    color: #c9c3ed;
+    margin-top: 5px;
+    font-size: 0.85rem;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding-bottom: 30px;
+  }
+
+  .event-card {
+    background: transparent;
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 10px 30px rgba(2, 6, 23, 0.25);
+    transition: all 0.35s ease;
+  }
+
+  .event-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at top,
+      rgba(59, 130, 246, 0.1) 0%,
+      rgba(99, 102, 241, 0.06) 35%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .event-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(96, 165, 250, 0.4);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 18px 40px rgba(37, 99, 235, 0.18),
+      0 0 24px rgba(59, 130, 246, 0.12);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .status-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+  }
+
+  .running .status-badge {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.35);
+  }
+
+  .upcoming .status-badge {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+  }
+
+  .finished .status-badge {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+  }
+
+  .category-tag {
+    display: inline-block;
+    color: #0d8eeb;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .event-title {
+    margin: 6px 0;
+    font-size: 1.2rem;
+    color: #c9c3ed;
+    line-height: 1.2;
+  }
+
+  .event-desc {
+    color: #64748b;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .action-area {
+    margin-top: auto;
+  }
+
+  .participant-count-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    margin-bottom: 14px;
+
+    background: rgba(37, 99, 235, 0.06);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 12px;
+
+    backdrop-filter: blur(10px);
+  }
+
+  .count-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+
+    background: linear-gradient(135deg, #60a5fa, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .count-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+
+  .btn-event {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border: none;
+    transition: 0.3s;
+  }
+
+  .btn-register {
+    background: rgba(37, 99, 235, 0.14);
+    color: #dbeafe;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-register:hover {
+    background: rgba(37, 99, 235, 0.22);
+    border-color: rgba(96, 165, 250, 0.5);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(59, 130, 246, 0.18);
+  }
+
+  .no-quiz-text {
+    text-align: center;
+    color: #64748b;
+    grid-column: 1 / -1;
+    padding: 40px 0;
+  }
+
+  @media (max-width: 1024px) {
+    .events-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-wrapper {
+      padding-top: 80px;
+    }
+    .events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="page-wrapper">
+  <div class="container">
+    <div class="header-content">
+      <div class="title-wrapper">
+        <h1>Leaderboards</h1>
+      </div>
+      <p class="sub-title">See how everyone ranked in each quiz</p>
+    </div>
+
+    <div class="events-grid">
+      {% for quiz in quizzes %}
+      <div
+        class="event-card {% if quiz.status == 'RUNNING' %}running{% elif quiz.status == 'UPCOMING' %}upcoming{% else %}finished{% endif %}"
+      >
+        <span class="status-badge">{{ quiz.status }}</span>
+
+        <div class="card-body">
+          <div class="top-info">
+            <span class="category-tag">Quiz</span>
+            <h3 class="event-title">{{ quiz.title }}</h3>
+            <p class="event-desc">{{ quiz.description|truncatewords:15 }}</p>
+          </div>
+
+          <div class="action-area">
+            <div class="participant-count-box">
+              <span class="count-number">{{ quiz.participant_count }}</span>
+              <span class="count-label">Participants</span>
+            </div>
+            <a
+              href="{% url 'quiz_leaderboard' quiz.id %}"
+              class="btn-event btn-register"
+              >View All</a
+            >
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="no-quiz-text">No quizzes found yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

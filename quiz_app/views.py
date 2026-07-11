@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Quiz, Participant
 from django.db import IntegrityError
 from django.core.paginator import Paginator
+from django.db.models import Count
+from .models import Quiz, Participant
 
 def quiz_list(request):
     quizzes = Quiz.objects.filter(is_published=True).order_by('-start_time')
@@ -24,6 +26,13 @@ def take_quiz(request, quiz_id):
         return HttpResponse("<h2 style='text-align:center; margin-top:100px;'>This quiz is not active.</h2>")
 
     if request.method == "POST":
+        # return HttpResponse(
+        #     f"""
+        #     POST DATA: {request.POST}<br>
+        #     Dept: {request.POST.get('dept')}<br>
+        #     Semester: {request.POST.get('semester')}
+        #     """
+        # )
         sid = request.POST.get('student_id')
         score = 0
         for q in quiz.questions.all():
@@ -177,3 +186,34 @@ def take_quiz(request, quiz_id):
             """)
 
     return render(request, 'quiz_app/take_quiz.html', {'quiz': quiz})
+
+
+def leaderboard_home(request):
+    quizzes = Quiz.objects.annotate(
+        participant_count=Count('participant')
+    ).order_by('-start_time')
+
+    return render(request, 'quiz_app/leaderboard_list.html', {
+        'quizzes': quizzes,
+    })
+
+
+def quiz_leaderboard(request, quiz_id):
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+
+    participants = Participant.objects.filter(quiz=quiz).order_by('-score', 'submitted_at')
+
+    ranked_participants = []
+    for idx, p in enumerate(participants, start=1):
+        ranked_participants.append({
+            'rank': idx,
+            'participant': p,
+        })
+
+    return render(request, 'quiz_app/leaderboard_detail.html', {
+        'quiz': quiz,
+        'ranked_participants': ranked_participants,
+        'total_participants': participants.count(),
+    })
+
+
