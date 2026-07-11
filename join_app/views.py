@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import MemberApplication, RecruitmentControl
+from utils.google_sheet import save_application
 
 def join(request):
     config = RecruitmentControl.objects.last()
@@ -11,7 +12,7 @@ def join(request):
         other_skill = request.POST.get('other_design')
         if other_skill:
             skills.append(other_skill)
-        MemberApplication.objects.create(
+        application = MemberApplication.objects.create(
             full_name=request.POST.get('name'),
             registration_number=request.POST.get('reg_no'),
             email=request.POST.get('email'),
@@ -24,6 +25,10 @@ def join(request):
             designing_skills=", ".join(skills),
             video_editing=request.POST.get('video_edit'),
             extracurricular=request.POST.get('extracurricular'),
+        )
+        save_application(
+            application,
+            config.semester_name
         )
         messages.success(request, 'Application submitted successfully!')
         return redirect('join')

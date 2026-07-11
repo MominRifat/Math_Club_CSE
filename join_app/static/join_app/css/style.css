@@ -1,6 +1,5 @@
 .join-page {
     padding: 100px 0;
-    background: #f8fafc;
     min-height: 100vh;
 }
 
@@ -23,13 +22,62 @@
 }
 
 .form-card {
-    max-width: 800px;
+    max-width: 600px;
+    /* আগে ছিল 800px */
+    width: 100%;
+
     margin: 0 auto;
-    background: white;
     padding: 50px;
-    border-radius: 30px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-    border: 1px solid #f1f5f9;
+
+    border-radius: 24px;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(59, 130, 246, 0.10),
+            transparent 45%),
+        radial-gradient(circle at bottom left,
+            rgba(99, 102, 241, 0.08),
+            transparent 40%),
+        rgba(15, 23, 42, 0.28);
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .04),
+        0 20px 45px rgba(2, 6, 23, .30),
+        0 0 30px rgba(59, 130, 246, .08);
+
+    transition: all .35s ease;
+}
+
+.form-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .03),
+            transparent 30%,
+            transparent 70%,
+            rgba(59, 130, 246, .05));
+
+    pointer-events: none;
+}
+
+.form-card:hover {
+
+    transform: translateY(-6px);
+
+    border-color: rgba(96, 165, 250, .35);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .05),
+        0 28px 55px rgba(2, 6, 23, .35),
+        0 0 35px rgba(59, 130, 246, .14);
 }
 
 .form-header {
@@ -38,21 +86,125 @@
     padding-bottom: 25px;
 }
 
+.form-title-wrapper {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
 .form-title {
+    margin: 0 0 18px;
+
+    font-size: 1.5rem;
     font-weight: 800;
-    color: #1e293b;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+    line-height: 1.4;
+
+    background: linear-gradient(135deg,
+            #ffffff,
+            #bfdbfe,
+            #60a5fa);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.semester-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 20px;
+
+    border-radius: 999px;
+
+    background: rgba(37, 99, 235, 0.10);
+
+    border: 1px solid rgba(59, 130, 246, 0.22);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: #bfdbfe;
+
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 0 18px rgba(59, 130, 246, .12);
+
+    transition: .3s;
+}
+
+.semester-badge:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(96, 165, 250, .4);
+
+    box-shadow:
+        0 0 25px rgba(59, 130, 246, .18);
+}
+
+.recruitment-info {
+    margin: 25px 0;
+    padding: 10px 22px;
+
+    border-radius: 16px;
+
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 0 20px rgba(59, 130, 246, .06);
+
+    text-align: center;
+    margin-top: -20px;
 }
 
 .recruitment-info p {
-    margin: 5px 0;
-    color: #475569;
+    margin: 10px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    color: #cbd5e1;
+    font-size: .9rem;
+    line-height: 1.6;
 }
 
 .recruitment-info span {
+    color: #60a5fa;
     font-weight: 700;
-    color: #0d8eeb;
+}
+
+.query-text {
+    margin-top: -10px;
+
+    text-align: center;
+
+    color: #94a3b8;
+    font-size: .85rem;
+    margin-bottom: -10px;
+}
+
+.query-text a {
+    color: #93c5fd;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.query-text a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(59, 130, 246, .45);
 }
 
 .form-row {
@@ -66,71 +218,242 @@
 }
 
 .form-group {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
 }
 
 .form-label {
-    display: block;
-    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 12px;
+    padding: 7px 14px;
+
+    border-radius: 10px;
+
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    color: #c9c3ed;
+
+    font-size: 0.8rem;
     font-weight: 700;
-    color: #334155;
-    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 0 14px rgba(59, 130, 246, .08);
+
+    transition: all .3s ease;
 }
 
+.form-label:hover {
+    background: rgba(37, 99, 235, 0.12);
+    border-color: rgba(96, 165, 250, 0.30);
+
+    box-shadow:
+        0 0 18px rgba(59, 130, 246, .15);
+}
+
+.form-label::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #60a5fa;
+
+    box-shadow: 0 0 10px rgba(96, 165, 250, .6);
+
+    flex-shrink: 0;
+}
 .form-input {
     width: 100%;
-    padding: 14px 20px;
-    border: 2px solid #f1f5f9;
+
+    padding: 11px 16px;
+    /* Height কমানো হয়েছে */
+
     border-radius: 12px;
-    font-size: 1rem;
-    transition: 0.3s;
-    background: #f8fafc;
+
+    background: rgba(15, 23, 42, 0.28);
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: #c9c3ed;
+
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    transition: all .3s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 0 0 rgba(59, 130, 246, 0);
+}
+
+.form-input::placeholder {
+    color: #9eb6eb;
 }
 
 .form-input:focus {
     outline: none;
-    border-color: #0d8eeb;
-    background: white;
-    box-shadow: 0 0 0 4px rgba(13, 142, 235, 0.1);
+
+    background: rgba(15, 23, 42, 0.42);
+
+    border-color: rgba(96, 165, 250, 0.45);
+
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.12),
+        0 0 18px rgba(59, 130, 246, 0.18);
+
+    color: #ffffff;
 }
 
 .checkbox-group,
 .radio-group {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
+    gap: 14px;
     align-items: center;
+    margin-top: 8px;
 }
 
 .checkbox-group label,
 .radio-group label {
-    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    border-radius: 10px;
+
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    color: #c9c3ed;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .3s ease;
+}
+
+.checkbox-group label:hover,
+.radio-group label:hover {
+    background: rgba(37, 99, 235, 0.15);
+    border-color: rgba(96, 165, 250, 0.35);
+
+    transform: translateY(-2px);
+}
+
+.checkbox-group input[type="checkbox"],
+.radio-group input[type="radio"] {
+    accent-color: #3b82f6;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
 }
 
 .other-input {
-    max-width: 200px;
-    padding: 8px 15px;
+    max-width: 220px;
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    background: rgba(15, 23, 42, 0.28);
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    color: #e2e8f0;
+
+    backdrop-filter: blur(10px);
+
+    transition: all .3s ease;
+}
+
+.other-input::placeholder {
+    color: #94a3b8;
+}
+
+.other-input:focus {
+    outline: none;
+
+    border-color: rgba(96, 165, 250, 0.45);
+
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.12),
+        0 0 16px rgba(59, 130, 246, 0.18);
 }
 
 .submit-btn {
     width: 100%;
-    background: #0d8eeb;
-    color: white;
-    padding: 18px;
-    border-radius: 16px;
-    border: none;
-    font-size: 1.1rem;
+
+    padding: 14px 20px;
+
+    border: 1px solid rgba(59, 130, 246, 0.22);
+    border-radius: 12px;
+
+    background: rgba(37, 99, 235, 0.12);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: #dbeafe;
+
+    font-size: 1rem;
     font-weight: 700;
+    letter-spacing: .3px;
+
     cursor: pointer;
-    transition: 0.3s;
-    margin-top: 10px;
+
+    transition: all .3s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .03),
+        0 0 18px rgba(59, 130, 246, .08);
+
+    margin-top: 15px;
 }
 
 .submit-btn:hover {
-    background: #0b7cd1;
+    background: rgba(37, 99, 235, 0.20);
+
+    border-color: rgba(96, 165, 250, 0.45);
+
+    color: #ffffff;
+
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(13, 142, 235, 0.2);
+
+    box-shadow:
+        0 12px 28px rgba(37, 99, 235, .18),
+        0 0 24px rgba(59, 130, 246, .18);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    background: rgba(100, 116, 139, 0.12);
+    border-color: rgba(100, 116, 139, 0.20);
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 @media (max-width: 768px) {
