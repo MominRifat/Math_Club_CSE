@@ -1,12 +1,13 @@
 import os
 from pathlib import Path
-
+from decouple import config
+import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-math-club-secret-key'
+# SECRET_KEY = 'django-insecure-math-club-secret-key'
 
-DEBUG = True
-
+# DEBUG = True
+DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -57,11 +58,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'math_club_project.wsgi.application'
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.parse(
+        config("DATABASE_URL")
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -107,3 +114,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+
+
+SECRET_KEY = config("SECRET_KEY")

@@ -9,31 +9,31 @@ from django.conf import settings
 from chatbot.gemini import ask_gemini
 
 from .context import get_mathclub_context
-mathclub_context = get_mathclub_context()
-system_instruction = f"""
-I am a official AI Assistant of UAP CSE Math Club.
-Made by Momin Ali Rifat
-My job is to answer visitors using ONLY the information provided below.
+#mathclub_context = get_mathclub_context()
+# system_instruction = f"""
+# I am a official AI Assistant of UAP CSE Math Club.
+# Made by Momin Ali Rifat
+# My job is to answer visitors using ONLY the information provided below.
 
-Rules:
+# Rules:
 
-1. Never make up information.
+# 1. Never make up information.
 
-2. If the answer is not available in the database, politely say:
-"Sorry, I couldn't find that information."
+# 2. If the answer is not available in the database, politely say:
+# "Sorry, I couldn't find that information."
 
-3. Be friendly.
+# 3. Be friendly.
 
-4. Keep answers short unless the user asks for details.
+# 4. Keep answers short unless the user asks for details.
 
-5. If someone asks about recruitment, explain the current recruitment status.
+# 5. If someone asks about recruitment, explain the current recruitment status.
 
-6. If someone asks about events, quizzes, gallery, or team members, answer from the database.
+# 6. If someone asks about events, quizzes, gallery, or team members, answer from the database.
 
-Database:
+# Database:
 
-{mathclub_context}
-"""
+# {mathclub_context}
+# """
 
 
 import json

@@ -20,8 +20,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
-    {% block extra_css %} {% endblock %}
+    {% comment %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% endcomment %} {% block extra_css %} {% endblock %}
   </head>
   <body>
     <div id="page-loader">
@@ -191,5 +192,7 @@
     </script>
     <script src="{% static 'js/loader.js' %}"></script>
     {% include 'home_app/chatbot.html' %}
+
+    <script src="{% static 'js/scroll.js' %}"></script>
   </body>
 </html>
