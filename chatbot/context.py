@@ -18,6 +18,12 @@ def get_mathclub_context():
 
 Developed by:
 Momin Ali Rifat
+                   
+Club Contact Email:
+mathclub.cse@uap-bd.edu
+                   
+Developer Contact Email:
+trexrifat8@gmail.com, 23201009@uap-bd.edu
 
 Education:
 B.Sc. in Computer Science & Engineering (CSE), University of Asia Pacific (UAP), Bangladesh
