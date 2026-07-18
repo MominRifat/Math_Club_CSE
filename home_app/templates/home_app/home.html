@@ -1,165 +1,199 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block title %} Home | UAP CSE
+Math Club {% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'home_app/css/style.css' %}" />
+{% endblock %} {% block content %}
+<header class="showcase">
+  <div class="slider">
+    <img src="{% static 'images/img1.jpg' %}" alt="Slide 1" class="slide" />
+    <img src="{% static 'images/img2.jpg' %}" alt="Slide 2" class="slide" />
+    <img src="{% static 'images/img3.jpg' %}" alt="Slide 3" class="slide" />
+    <img src="{% static 'images/img4.jpg' %}" alt="Slide 4" class="slide" />
+    <div class="slider-overlay"></div>
+    <div class="slider-text animate-text">
+      <h1>Welcome to</h1>
+      <h1>Math Club - CSE UAP</h1>
+    </div>
+    <div class="showcase-actions">
+      <a href="{% url 'events' %}" class="btn-primary1">Explore More &rarr;</a>
+      <a href="{% url 'join' %}" class="btn-outline1">Join Us</a>
+    </div>
+  </div>
+</header>
 
-{% block title %}
-  Home | UAP CSE Math Club
-{% endblock %}
+<section class="fb-updates">
+  <div class="container">
+    <div class="fb-header">
+      <div style="text-align: center">
+        <div class="section-icon">
+          <i data-lucide="calendar"></i>
+        </div>
 
-{% block extra_css %}
-  <link rel="stylesheet" href="{% static 'home_app/css/style.css' %}" />
-{% endblock %}
-
-{% block content %}
-  <header class="showcase">
-    <div class="slider">
-      <img src="{% static 'images/img1.jpg' %}" alt="Slide 1" class="slide" />
-      <img src="{% static 'images/img2.jpg' %}" alt="Slide 2" class="slide" />
-      <img src="{% static 'images/img3.jpg' %}" alt="Slide 3" class="slide" />
-      <img src="{% static 'images/img4.jpg' %}" alt="Slide 4" class="slide" />
-      <div class="slider-overlay"></div>
-      <div class="slider-text animate-text">
-        <h1>Welcome to</h1>
-        <h1>Math Club - CSE UAP</h1>
-      </div>
-      <div class="showcase-actions">
-        <a href="{% url 'events' %}" class="btn-primary1">Explore More &rarr;</a>
-        <a href="{% url 'join' %}" class="btn-outline1">Join Us</a>
+        <h2 class="section-title">Latest Updates</h2>
       </div>
     </div>
-  </header>
 
-  <section class="fb-updates">
-    <div class="container">
-      <div class="fb-header">
-        <div style="text-align:center;">
-          <div class="section-icon">
+    <div class="fb-grid">
+      {% for post in posts %}
+      <div class="fb-card">
+        <div class="fb-card-image">
+          {% if post.image %}
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+          {% endif %}
+
+          <div class="fb-card-meta">
             <i data-lucide="calendar"></i>
+            {{ post.date_captured|date:'M d, Y' }}
           </div>
+        </div>
 
-          <h2 class="section-title">Latest Updates</h2>
+        <div class="fb-card-caption">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.content|truncatewords:18 }}</p>
+        </div>
+
+        <div class="fb-card-footer">
+          <a href="{% url 'gallery' %}" class="fb-card-link">Read More</a>
         </div>
       </div>
-
-      <div class="fb-grid">
-        {% for post in posts %}
-          <div class="fb-card">
-            <div class="fb-card-image">
-              {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" />
-              {% endif %}
-
-              <div class="fb-card-meta">
-                <i data-lucide="calendar"></i>
-                {{ post.date_captured|date:'M d, Y' }}
-              </div>
-            </div>
-
-            <div class="fb-card-caption">
-              <h3>{{ post.title }}</h3>
-              <p>{{ post.content|truncatewords:18 }}</p>
-            </div>
-
-            <div class="fb-card-footer">
-              <a href="{% url 'gallery' %}" class="fb-card-link">Read More</a>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-
-      <a href="{% url 'gallery' %}" class="btn-outlineviewall">View All Posts &rarr;</a>
+      {% endfor %}
     </div>
-    <hr class="divider" />
-  </section>
 
-  <section class="activities">
-    <div class="container">
-      <div class="header">
-        <span class="section-tag"><i data-lucide="activity"></i></span>
-        <h2 class="section-title">Core Activities</h2>
+    <a href="{% url 'gallery' %}" class="btn-outlineviewall"
+      >View All Posts &rarr;</a
+    >
+  </div>
+  <hr class="divider" />
+</section>
+
+<section class="activities">
+  <div class="container">
+    <div class="header">
+      <span class="section-tag"><i data-lucide="activity"></i></span>
+      <h2 class="section-title">Core Activities</h2>
+    </div>
+
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i data-lucide="trophy"></i>
+        </div>
+        <h3>Math Fest</h3>
+        <p>
+          Inter-University Math Olympiad, Puzzle Hunt, Math Games, and
+          Intra-Department Math Challenges.
+        </p>
       </div>
-
-      <div class="activity-grid">
-        <div class="activity-card">
-          <div class="activity-icon">
-            <i data-lucide="trophy"></i>
-          </div>
-          <h3>Math Fest</h3>
-          <p>Inter-University Math Olympiad, Puzzle Hunt, Math Games, and Intra-Department Math Challenges.</p>
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i data-lucide="help-circle"></i>
         </div>
-        <div class="activity-card">
-          <div class="activity-icon">
-            <i data-lucide="help-circle"></i>
-          </div>
-          <h3>Weekly Quiz</h3>
-          <p>Exciting weekly quizzes to test speed, logical reasoning, and problem-solving skills.</p>
+        <h3>Weekly Quiz</h3>
+        <p>
+          Exciting weekly quizzes to test speed, logical reasoning, and
+          problem-solving skills.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i data-lucide="puzzle"></i>
         </div>
-        <div class="activity-card">
-          <div class="activity-icon">
-            <i data-lucide="puzzle"></i>
-          </div>
-          <h3>Mathematical Exploration</h3>
-          <p>Explore number theory, combinatorics, graph theory, and other fascinating areas of mathematics.</p>
+        <h3>Mathematical Exploration</h3>
+        <p>
+          Explore number theory, combinatorics, graph theory, and other
+          fascinating areas of mathematics.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon">
+          <i data-lucide="book-open"></i>
         </div>
-        <div class="activity-card">
-          <div class="activity-icon">
-            <i data-lucide="book-open"></i>
-          </div>
-          <h3>Workshops</h3>
-          <p>Interactive sessions on advanced problem-solving, LaTeX, and mathematical tools for competitions.</p>
-        </div>
+        <h3>Workshops</h3>
+        <p>
+          Interactive sessions on advanced problem-solving, LaTeX, mathematical
+          tools, and Math Olympiad preparation for competitions.
+        </p>
       </div>
     </div>
-    <hr class="divider" />
-  </section>
+  </div>
+  <hr class="divider" />
+</section>
 
-  <section class="about-split">
-    <div class="container">
-      <span class="section-tag"><i data-lucide="target"></i></span>
-      <h2 class="section-title">Why Choose Us</h2>
+<section class="about-split">
+  <div class="container">
+    <span class="section-tag"><i data-lucide="target"></i></span>
+    <h2 class="section-title">Why Join Math Club?</h2>
 
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Logical Thinking</h3>
-          <p>Sharpen your logical reasoning and analytical skills through math challenges.</p>
-        </div>
-        <div class="about-card">
-          <h3>Exciting Contests</h3>
-          <p>Participate in Olympiads, quizzes, and math fests to test your abilities.</p>
-        </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Master Problem Solving</h3>
+        <p>
+          Develop strong logical thinking and analytical skills by solving
+          challenging mathematical problems.
+        </p>
+      </div>
 
-        <div class="about-card">
-          <h3>Workshops & Seminars</h3>
-          <p>Learn advanced problem-solving techniques and explore new topics.</p>
-        </div>
-        <div class="about-card">
-          <h3>Collaborative Growth</h3>
-          <p>Work with peers in problem-solving sessions and grow together.</p>
-        </div>
+      <div class="about-card">
+        <h3>Compete & Excel</h3>
+        <p>
+          Participate in Math Olympiads, quizzes, and competitions to challenge
+          yourself and showcase your mathematical skills.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>Learn Beyond the Classroom</h3>
+        <p>
+          Explore advanced mathematical concepts, problem-solving techniques,
+          LaTeX, and mathematical tools through interactive sessions.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>Grow With a Community</h3>
+        <p>
+          Connect with passionate students, collaborate on problems, share
+          ideas, and grow together in a supportive mathematical community.
+        </p>
       </div>
     </div>
-     <hr class="divider">
-  </section>
+  </div>
+  <hr class="divider" />
+</section>
 
-  <section class="convenor-club">
-    <div class="falling-lines">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+<section class="convenor-club">
+  <div class="falling-lines">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="container">
+    <div class="convenor-text">
+      <p>
+        ❝Mathematics is not just about numbers; it's about solving problems,
+        thinking logically, and shaping the way we understand the world. Our
+        Math Club is dedicated to nurturing these skills and creating a
+        community where every member can learn, collaborate, and grow.❞
+      </p>
     </div>
-    <div class="container">
-      <div class="convenor-text">
-        <p>❝Mathematics is not just about numbers; it's about solving problems, thinking logically, and shaping the way we understand the world. Our Math Club is dedicated to nurturing these skills and creating a community where every member can learn, collaborate, and grow.❞</p>
-      </div>
-      <div class="convenor-info">
-        <img src="{% static 'images/rr.jpg' %}" class="convenor-img" />
-        <div class="convenor-details">
-          <h3 class="convenor-name">Rashik Rahman</h3>
-          <p class="convenor-designation">Convenor, Math Club</p>
-          <p class="convenor-designation">Lecturer, CSE-UAP</p>
-        </div>
+    {% if convenor %}
+    <div class="convenor-info">
+      <img
+        src="{{ convenor.image.url }}"
+        class="convenor-img"
+        alt="{{ convenor.name }}"
+      />
+
+      <div class="convenor-details">
+        <h3 class="convenor-name">{{ convenor.name }}</h3>
+
+        <p class="convenor-designation">{{ convenor.designation }}</p>
+
+        <p class="convenor-designation">{{ convenor.organization }}</p>
       </div>
     </div>
-  </section>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}

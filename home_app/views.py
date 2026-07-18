@@ -11,7 +11,19 @@ def get_data():
 
 from django.shortcuts import render
 from gallery_app.models import GalleryItem
-
+from .models import Convenor
 def home(request):
+    convenor = Convenor.objects.first()
+
     latest_posts = GalleryItem.objects.order_by('-date_captured')[:3]
-    return render(request, 'home_app/home.html', {'posts': latest_posts})
+
+    context = {
+        'convenor': convenor,
+        'posts': latest_posts,
+    }
+
+    return render(
+        request,
+        'home_app/home.html',
+        context
+    )

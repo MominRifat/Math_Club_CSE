@@ -6,7 +6,15 @@ SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive",
 ]
+import json
 
+# print("CREDENTIAL PATH:", settings.GOOGLE_CREDENTIAL)
+
+# with open(settings.GOOGLE_CREDENTIAL, "r") as f:
+#     data = json.load(f)
+
+# print("SERVICE ACCOUNT:", data["client_email"])
+# print("PRIVATE KEY ID:", data["private_key_id"])
 credentials = Credentials.from_service_account_file(
     settings.GOOGLE_CREDENTIAL,
     scopes=SCOPES

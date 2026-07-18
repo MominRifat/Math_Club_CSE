@@ -3,7 +3,7 @@ from gallery_app.models import GalleryItem
 from team_app.models import TeamMember
 from quiz_app.models import Quiz
 from join_app.models import RecruitmentControl
-
+from home_app.models import Convenor
 
 def get_mathclub_context():
 
@@ -33,6 +33,29 @@ https://facebook.com/mominrifat8
 
 Codeforces:
 https://codeforces.com/profile/Momin_Rifat
+
+""")
+    
+    # =========================
+    # Convenor
+    # =========================
+
+    convenor = Convenor.objects.first()
+
+    if convenor:
+
+        context.append(f"""
+
+================ CONVENOR ================
+
+Name:
+{convenor.name}
+
+Designation:
+{convenor.designation}
+
+Organization:
+{convenor.organization}
 
 """)
 
