@@ -103,9 +103,9 @@ EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = "mominrifat8@gmail.com"
+EMAIL_HOST_USER = "mathclub.cse@uap-bd.edu"
 
-EMAIL_HOST_PASSWORD = "kaawmtmwfzimfebv"
+EMAIL_HOST_PASSWORD = "bnuvusophjgqcqoy"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
