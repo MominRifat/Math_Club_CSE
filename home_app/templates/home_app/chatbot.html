@@ -1,16 +1,16 @@
-<!-- AI Chatbot Partial -->
+
 {% csrf_token %}
 <div class="chatbot-container">
-  <!-- Chat Toggle Button -->
+
   <button
     id="chatbot-toggle"
     class="chatbot-toggle-btn"
     aria-label="Toggle AI Assistant"
   >
-    <!-- Floating chat tooltip -->
+
     <span class="chatbot-tooltip">Chat with AI !</span>
 
-    <!-- Animated icon -->
+
     <svg
       id="chat-icon"
       class="chatbot-icon"
@@ -42,13 +42,13 @@
       ></path>
     </svg>
 
-    <!-- Pulse ring -->
+
     <span class="chatbot-pulse-ring"></span>
   </button>
 
-  <!-- Chat Panel -->
+
   <div id="chatbot-panel" class="chatbot-panel chatbot-panel-hidden">
-    <!-- Chat Header -->
+
     <div class="chatbot-header">
       <div class="chatbot-header-left">
         <div class="chatbot-avatar-wrap">
@@ -79,7 +79,7 @@
       </button>
     </div>
 
-    <!-- Chat Messages -->
+
     <div id="chatbot-messages" class="chatbot-messages">
       <div class="chatbot-msg chatbot-msg-model">
         <div class="chatbot-msg-avatar">
@@ -87,25 +87,13 @@
         </div>
         <div class="chatbot-bubble chatbot-bubble-model">
           Hi! I'm Math Club's dynamic AI assistant, Ask me anything about Math Club:
-          {% comment %} <ul class="chatbot-list">
-            <li>Custom Web Systems & Projects</li>
-            <li>Technical Skill Stack & Certifications</li>
-            <li>Work History & Education</li>
-            <li>Available Services & Contact Info</li>
-          </ul> {% endcomment %}
         </div>
       </div>
 
-      <!-- Quick Suggestions -->
+
       <div id="quick-suggestions" class="chatbot-suggestions">
         <p class="chatbot-suggestions-label">Suggested Questions</p>
         <div class="chatbot-suggestions-list">
-          {% comment %} <button class="suggestion-btn chatbot-suggestion-btn">
-            What are your main projects?
-          </button>
-          <button class="suggestion-btn chatbot-suggestion-btn">
-            Tell me about your tech stack.
-          </button> {% endcomment %}
           <button class="suggestion-btn chatbot-suggestion-btn">
             How can I contact you?
           </button>
@@ -113,7 +101,6 @@
       </div>
     </div>
 
-    <!-- Chat Typing Indicator -->
     <div id="chatbot-typing" class="chatbot-typing chatbot-typing-hidden">
       <div class="chatbot-msg-avatar">
         <i class="fas fa-robot"></i>
@@ -125,7 +112,6 @@
       </div>
     </div>
 
-    <!-- Chat Input Form -->
     <form id="chatbot-form" class="chatbot-form">
       <input
         type="text"

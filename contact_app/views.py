@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactMessage # Model import korun
+from .models import ContactMessage 
 from django.core.mail import send_mail
 from django.conf import settings
 
 def contact(request):
     if request.method == 'POST':
-        # Form theke data gulo niche
         name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')

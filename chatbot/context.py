@@ -9,10 +9,6 @@ def get_mathclub_context():
 
     context = []
 
-    # =========================
-    # Developer Info (static)
-    # =========================
-
     context.append("""
 ================ DEVELOPER INFO ================
 
